@@ -19,4 +19,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/login',[LoginController::class, 'login'])->name('api.login');
+Route::post('/login',[LoginController::class, 'login'])->name('api.login');
