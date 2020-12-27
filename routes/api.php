@@ -20,4 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function () {
     return 'Prueba';
-})->middleware('guest');
+})->middleware('auth.basic');
+
+Route::post('/login', function () {
+    return 'Prueba de Logeo';
+});
