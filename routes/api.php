@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,4 @@ Route::get('/user', function () {
     return 'Prueba';
 })->middleware('auth.basic');
 
-Route::post('/login', function () {
-    return 'Prueba de Logeo';
-});
+Route::post('/login', [UserController::class, 'index']);
