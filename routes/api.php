@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,5 @@ Route::get('/user', function () {
     return 'Prueba';
 })->middleware('auth.basic');
 
-Route::post('/login', [UserController::class, 'index']);
+Route::post('/login/{socialNetwork}', [SocialLoginController::class, 'index']);
+Route::post('/login/{socialNetwork}', [SocialLoginController::class, 'index']);
