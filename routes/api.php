@@ -20,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/user', function () {
+Route::middleware('auth:api')->get('/user', function () {
     return 'Prueba';
-})->middleware('auth.basic');
+});
 
-Route::post('/login/{socialNetwork}', [SocialLoginController::class, 'index']);
-Route::post('/login/{socialNetwork}', [SocialLoginController::class, 'index']);
+Route::get('/login/{socialNetwork}', [SocialLoginController::class, 'redirectToSocialNetwork'])->name('login.social')->middleware('guest', 'social_network');
+Route::get('/login/{socialNetwork}/callback', [SocialLoginController::class, 'handleSocialNetworkCallback'])->middleware('guest', 'social_network');

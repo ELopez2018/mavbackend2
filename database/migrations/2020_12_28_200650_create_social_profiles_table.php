@@ -17,7 +17,7 @@ class CreateSocialProfilesTable extends Migration
             $table->id();
             $table->unsignedInteger('user_id');
             $table->string('social_network_user_id');
-            $table->string('social_network_user');
+            $table->string('social_network');
             $table->string('avatar');
             $table->timestamps();
         });
