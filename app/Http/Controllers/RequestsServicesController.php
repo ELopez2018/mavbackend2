@@ -17,14 +17,13 @@ class RequestsServicesController extends Controller
  * @apiName requestServices
  * @apiGroup Solicitudes
  *
- * @apiParam {String} name Users unique ID.
- *
- * @apiSuccess {String} email Email of the User.
- * @apiSuccess {String} request_type_id  id del tipo de solicitud ejemplo consulta, Capacitacion, diplomado,.
- * @apiSuccess {String} service_type_id  id del tipo de Sercvicio,.
- * @apiSuccess {String} telefono  Numero de telefono de conatcto es obligatorio mínimo caracteres.
- * @apiSuccess {String} mensaje  Mensaje que envia el usuario a la plataforma.
- * @apiSuccessExample {json} Success-Response:
+ * @apiParam {String} name Nombre del usuario que hace la solicitud.
+ * @apiParam {String} email Email del usuario que hace la solicitud.
+ * @apiParam {String} request_type_id  Id del tipo de solicitud por ejemplo: Consulta, Capacitacion, diplomado.
+ * @apiParam {String} service_type_id  Id del tipo de Servicio.
+ * @apiParam {String} telefono  Número de teléfono de contacto, es obligatorio mínimo 10 caracteres.
+ * @apiParam {String} mensaje  Mensaje que envía el usuario a la plataforma.
+ * @apiSuccessExample {json} Respuesta de radicado:
  *     HTTP/1.1 200 OK
  *     {
  *       "message": "Solicitud radicada satisfactoriamente",
