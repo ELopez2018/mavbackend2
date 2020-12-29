@@ -12,6 +12,27 @@ use Illuminate\Support\Facades\Hash;
 
 class RequestsServicesController extends Controller
 {
+/**
+ * @api {post} http://miasesorvial3.test/api/v1/requestServices Registro de Solicitu de Servicios
+ * @apiName requestServices
+ * @apiGroup Solicitudes
+ *
+ * @apiParam {String} name Users unique ID.
+ *
+ * @apiSuccess {String} email Email of the User.
+ * @apiSuccess {String} request_type_id  id del tipo de solicitud ejemplo consulta, Capacitacion, diplomado,.
+ * @apiSuccess {String} service_type_id  id del tipo de Sercvicio,.
+ * @apiSuccess {String} telefono  Numero de telefono de conatcto es obligatorio mínimo caracteres.
+ * @apiSuccess {String} mensaje  Mensaje que envia el usuario a la plataforma.
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "message": "Solicitud radicada satisfactoriamente",
+ *       "data": null,
+ *       "code": 200,
+ *       "details": null
+ *     }
+ */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
