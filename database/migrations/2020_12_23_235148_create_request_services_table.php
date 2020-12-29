@@ -24,7 +24,7 @@ class CreateRequestServicesTable extends Migration
             $table->bigInteger("service_type_id")->unsigned()->nullable()->default(null);
             $table->foreign('service_type_id')->references('id')->on('services_types')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->bigInteger("request_state_id")->unsigned()->nullable()->default(null);
+            $table->bigInteger("request_state_id")->unsigned()->nullable()->default(0);
             $table->foreign('request_state_id')->references('id')->on('request_states')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string("telefono",50);

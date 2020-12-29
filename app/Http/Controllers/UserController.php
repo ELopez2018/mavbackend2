@@ -2,28 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
-    function index(Request $request)
+    public function store(Request $request)
     {
-        $user= User::where('email', $request->email)->first();
-        // print_r($data);
-            if (!$user || !Hash::check($request->password, $user->password)) {
-                return response([
-                    'message' => ['Email y/o Contraseña incorrectas']
-                ], 404);
-            }
 
-             $token = $user->createToken('my-app-token')->plainTextToken;
-
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|string|between:10,45|unique:users',
+            'password' => 'required|string|between:6,20'
+        ]);
+        if ($validator->fails()) {
             $response = [
-                'user' => $user,
-                'token' => $token
+                'message' => 'Error de validación los parámetros no cumplen con las especificaciones',
+                'data' => null,
+                'code' => 404,
+                'details' => $validator->errors()
             ];
+        }
+        else
+        {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'api_token' => Str::random(60),
+                'role_id' => 2,
+                'password' => Hash::make($request->password),
+            ]);
+            $response = [
+                'message' => 'Usuario creado correctamente',
+                'data' => $user,
+                'code' => 201
+            ];
+        }
 
-             return response($response, 201);
+        return  response()->json($response, $response['code']);
     }
 }
