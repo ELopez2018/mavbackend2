@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ServicesType extends Model
 {
     use HasFactory;
+    protected $hidden = [
+        'deleted_at'
+    ];
 }

@@ -33,6 +33,7 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/getServicesTypes', [ServicesTypesController::class, 'index'])->name('servicesTypes.index');
 Route::get('/getrequestTypes',  [RequestsTypesController::class, 'index'])->name('requestTypes.index');
 Route::post('/requestServices', [RequestsServicesController::class, 'store'])->name('requestServices.store');
+Route::get('/requestServices', [RequestsServicesController::class, 'index'])->name('requestServices.index');
 
 Route::middleware('auth:api')->get('/user', function () {  return 'Prueba'; });
 

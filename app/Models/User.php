@@ -48,7 +48,9 @@ class User extends \TCG\Voyager\Models\User
     public function profiles() {
        return $this->hasMany(SocialProfile::class);
     }
-
+    public function requestServices() {
+        return $this->hasMany(RequestService::class);
+     }
     public function getAvatarAttributeSocial()
     {
         return Optional($this->profiles->first()->avatar ?? url('/storage/users/default.png'));

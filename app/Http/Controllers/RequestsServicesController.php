@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonalData;
-use App\Models\RequestServices;
+use App\Models\RequestService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -48,7 +48,7 @@ class RequestsServicesController extends Controller
             ];
         } else {
             $data = self::usuario($request); // devuelve el user_id y si es un usuario nuevo devuelve el user_id y el password tempporal
-            RequestServices::create([
+            RequestService::create([
                 'user_id' => $data['user_id'],
                 'request_type_id' => $request->request_type_id,
                 'service_type_id' => $request->service_type_id,
@@ -94,5 +94,11 @@ class RequestsServicesController extends Controller
             ];
         }
         return $data;
+    }
+
+    public function index(){
+        $requestsServices = RequestService::all();
+
+        return  $requestsServices;
     }
 }
