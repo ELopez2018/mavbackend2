@@ -9,7 +9,7 @@ class RequestService extends Model
 {
     use HasFactory;
     protected $guarded = [];
-        /**
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
