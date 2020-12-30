@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisteredUserController;
+
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RequestsServicesController;
+use App\Http\Controllers\RequestsTypesController;
+use App\Http\Controllers\ServicesTypesController;
 use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -19,16 +21,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
-* USUARIO
-*/
-
+// ====================== Logeo del sistemas========================||
 Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::post('/requestServices', [RequestsServicesController::class, 'store'])->name('request.Services');
+Route::get('/login/{socialNetwork}', [SocialLoginController::class, 'redirectToSocialNetwork'])->name('login.social')->middleware('guest', 'social_network');
+Route::get('/login/{socialNetwork}/callback', [SocialLoginController::class, 'handleSocialNetworkCallback'])->middleware('guest', 'social_network');
 
+// ====================== Usuarios =================================||
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
+// ====================== Servicios ================================||
+Route::get('/getServicesTypes', [ServicesTypesController::class, 'index'])->name('servicesTypes.index');
+Route::get('/getrequestTypes',  [RequestsTypesController::class, 'index'])->name('requestTypes.index');
+Route::post('/requestServices', [RequestsServicesController::class, 'store'])->name('requestServices.store');
 
 Route::middleware('auth:api')->get('/user', function () {  return 'Prueba'; });
 
-Route::get('/login/{socialNetwork}', [SocialLoginController::class, 'redirectToSocialNetwork'])->name('login.social')->middleware('guest', 'social_network');
-Route::get('/login/{socialNetwork}/callback', [SocialLoginController::class, 'handleSocialNetworkCallback'])->middleware('guest', 'social_network');
+
