@@ -1,7 +1,7 @@
 {
     "name": "MI ASESOR VIAL",
     "version": "1.0.0",
-    "description": "En esta documentacion encontraras la explicacion de cada uno de los servicios de la plataforma",
+    "description": "En esta documentación encontrarás la explicación de cada uno de las APIS de la plataforma",
     "title": "API MI ASESOR VIAL",
     "url" : "https://miasesorvial.com/api/v1"
 }

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
  /**
- * @api {post} http://miasesorvial3.test/api/v1//users Registro de Usuarios
+ * @api {post} http://miasesorvial3.test/api/v1/users Registro de Usuarios
  * @apiName store
  * @apiGroup Usuarios
  *

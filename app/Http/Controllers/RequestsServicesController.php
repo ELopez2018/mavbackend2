@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 class RequestsServicesController extends Controller
 {
 /**
- * @api {post} http://miasesorvial3.test/api/v1/requestServices Registro de Solicitu de Servicios
+ * @api {post} http://miasesorvial3.test/api/v1/requestServices Registro de Solicitud de Servicios
  * @apiName requestServices
  * @apiGroup Solicitudes
  *
