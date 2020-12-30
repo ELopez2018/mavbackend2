@@ -26,7 +26,7 @@ class RequestService extends Model
     {
         return $this->belongsTo(App\Models\requestType::class);
     }
-    public function ServiceType()
+    public function serviceType()
     {
         return $this->belongsTo(App\Models\ServicesType::class);
     }
