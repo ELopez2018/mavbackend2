@@ -9,14 +9,13 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
     /**
-     * @api {post} http://miasesorvial3.test/api/v1/login Login de Usuarios
+     * @api {post} http://miasesorvial3.test/api/v1/login Login
      * @apiName login
      * @apiGroup Usuarios
      *
      * @apiParam {String} email Email del usuario es obligatorio.
      * @apiParam {String} password  Debe tener entre 6 y 20 caracteres.
      * @apiSuccessExample {json} Respuesta de logueo:
-     *     HTTP/1.1 200 OK
      *       {
      *           "message": "Bienvendido al sistema",
      *           "data": {

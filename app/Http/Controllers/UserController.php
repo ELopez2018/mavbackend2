@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
  /**
- * @api {post} http://miasesorvial3.test/api/v1/users Registro de Usuarios
+ * @api {post} http://miasesorvial3.test/api/v1/users Registro
  * @apiName store
  * @apiGroup Usuarios
  *
@@ -19,7 +19,6 @@ class UserController extends Controller
  * @apiParam {String} email Email del usuario es obligatorio.
  * @apiParam {String} password  Debe tener entre 6 y 20 caracteres.
  * @apiSuccessExample {json} Respuesta de registro:
- *     HTTP/1.1 200 OK
  *     {
  *       "message": "Usuario creado correctamente",
  *       "data": null,
