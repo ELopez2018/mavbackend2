@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class RequestsTypesController extends Controller
 {
     /**
-     * @api {post} http://miasesorvial3.test/api/v1/getServicesTypes Consulta Tipos de Servicios
-     * @apiName getrequestTypes
-     * @apiGroup Servicios
+     * @api {post} http://miasesorvial3.test/api/v1/getRequestTypes Tipos
+     * @apiName getRequestTypes
+     * @apiGroup Solicitudes
      *
      * @apiSuccessExample {json} Consulta exitosa:
      *   "links": [],

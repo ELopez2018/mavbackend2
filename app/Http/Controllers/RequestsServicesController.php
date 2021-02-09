@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\newRequest;
 use App\Models\AssignedService;
 use App\Models\PersonalData;
 use App\Models\RequestService;
+use App\Models\RequestType;
+use App\Models\ServicesType;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -12,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RequestsServicesController extends Controller
 {
@@ -20,12 +24,12 @@ class RequestsServicesController extends Controller
      * @apiName requestServices
      * @apiGroup Solicitudes
      *
-     * @apiParam {String} name Nombre del usuario que hace la solicitud.
-     * @apiParam {String} email Email del usuario que hace la solicitud.
-     * @apiParam {String} request_type_id  Id del tipo de solicitud por ejemplo: Consulta, Capacitacion, diplomado.
-     * @apiParam {String} service_type_id  Id del tipo de Servicio.
-     * @apiParam {String} telefono  Número de teléfono de contacto, es obligatorio mínimo 10 caracteres.
-     * @apiParam {String} mensaje  Mensaje que envía el usuario a la plataforma.
+     * @apiParam {String} name=required     Nombre del usuario que hace la solicitud.
+     * @apiParam {String} email=required    Email del usuario que hace la solicitud.
+     * @apiParam {number} request_type_id   Id del tipo de solicitud por ejemplo: Consulta, Capacitacion, diplomado.
+     * @apiParam {number} service_type_id   Id del tipo de Servicio.
+     * @apiParam {String} telefono=required Número de teléfono de contacto, es obligatorio mínimo 10 caracteres.
+     * @apiParam {String} [mensaje]         Mensaje que envía el usuario a la plataforma.
      * @apiSuccessExample {json} Respuesta de radicado:
      *     {
      *       "message": "Solicitud radicada satisfactoriamente",
@@ -40,35 +44,51 @@ class RequestsServicesController extends Controller
             'email' => 'required|email|string|between:10,45',
             'telefono' => 'required|min:10'
         ]);
-
+        $datos = $request->all();
         if ($validator->fails()) {
             $response = [
                 'message' => 'Error de validación los parámetros no cumplen con las especificaciones',
                 'data' => null,
-                'code' => 404,
-                'details' => $validator->errors()
+                'code' => 400,
+                'details' => $validator->errors(),
+                'metadata' => $datos,
             ];
         } else {
             $data = self::usuario($request); // devuelve el user_id y si es un usuario nuevo devuelve el user_id y el password tempporal
-            RequestService::create([
+            $solicitudNueva = RequestService::create([
                 'user_id' => $data['user_id'],
                 'request_type_id' => $request->request_type_id,
                 'service_type_id' => $request->service_type_id,
                 'telefono' => $request->telefono,
                 'mensaje' => $request->mensaje,
             ]);
+            $solicitudNueva= self::SolicitudRecibida($solicitudNueva);
+            $solicitudNueva->email = $datos['email'];
+            $solicitudNueva->name  = $datos['name'];
+
             $response = [
                 'message' => 'Solicitud radicada satisfactoriamente',
                 'data' => null,
                 'code' => 200,
-                'details' => null
+                'details' => $solicitudNueva
             ];
+            $para= env('MAIL_SYSTEM','estarlin.elv@gmail.com');
+
+            Mail::to($para)->queue( new newRequest($solicitudNueva));
+
         }
 
         return  response()->json($response, $response['code']);
     }
+    public  static function SolicitudRecibida($datos) {
 
-    public function usuario(Request $request)
+        $solserv =  RequestService::find($datos->id);
+        $solserv->solicitud = RequestType::find($solserv->request_type_id)->descripcion;
+        $solserv->servicio = ServicesType::find($solserv->service_type_id)->descripcion;
+        return $solserv;
+    }
+
+    public  static function usuario(Request $request)
     {
         if ($user = User::where('email', $request->email)->first()) {
             $data = [

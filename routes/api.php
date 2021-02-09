@@ -31,7 +31,7 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 // ====================== Servicios ================================||
 Route::get('/getServicesTypes', [ServicesTypesController::class, 'index'])->name('servicesTypes.index');
-Route::get('/getrequestTypes',  [RequestsTypesController::class, 'index'])->name('requestTypes.index');
+Route::get('/getRequestTypes',  [RequestsTypesController::class, 'index'])->name('requestTypes.index');
 Route::post('/requestServices', [RequestsServicesController::class, 'store'])->name('requestServices.store');
 Route::get('/requestServices/{id}', [RequestsServicesController::class, 'show'])->name('requestServices.show');
 Route::post('/serviceAssignment', [RequestsServicesController::class, 'serviceAssignment'])->name('requestServices.serviceAssignment');

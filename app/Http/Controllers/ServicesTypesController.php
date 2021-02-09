@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ServicesTypesController extends Controller
 {
     /**
-     * @api {post} http://miasesorvial3.test/api/v1/getServicesTypes Consulta de Servicios
+     * @api {post} http://miasesorvial3.test/api/v1/getServicesTypes Consulta
      * @apiName getServicesTypes
      * @apiGroup Servicios
      *
