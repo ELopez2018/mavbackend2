@@ -24,27 +24,27 @@
               <div class="col-sm-6">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control form-control-sm" id="nombre" value={{ $datos['name'] }} placeholder="name@example.com">
+                    <input type="text" class="form-control form-control-sm" id="nombre" value="{{ $datos['name'] }}" placeholder="name@example.com">
                   </div>
 
                   <div class="form-group">
                     <label for="email">Correo Electrónico</label>
-                    <input type="email" class="form-control form-control-sm" id="email" value={{ $datos['email'] }} placeholder="name@example.com">
+                    <input type="email" class="form-control form-control-sm" id="email" value="{{ $datos['email'] }}" placeholder="name@example.com">
                   </div>
 
                   <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="text" class="form-control form-control-sm" id="telefono" value={{ $datos['telefono'] }} placeholder="name@example.com">
+                    <input type="text" class="form-control form-control-sm" id="telefono" value="{{ $datos['telefono'] }}" placeholder="name@example.com">
                   </div>
 
                   <div class="form-group">
                     <label for="servicio">Servício</label>
-                    <input type="text" class="form-control form-control-sm" id="servicio" value={{$datos['servicio']}} placeholder="name@example.com">
+                    <input type="text" class="form-control form-control-sm" id="servicio" value="{{$datos['servicio']}}" placeholder="name@example.com">
                   </div>
 
                   <div class="form-group">
                     <label for="Solicitud">Interesado en:</label>
-                    <input type="text" class="form-control form-control-sm" id="Solicitud" value={{$datos['solicitud']}} placeholder="name@example.com">
+                    <input type="text" class="form-control form-control-sm" id="Solicitud" value="{{$datos['solicitud']}}" placeholder="name@example.com">
                   </div>
 
                   <div class="form-group">

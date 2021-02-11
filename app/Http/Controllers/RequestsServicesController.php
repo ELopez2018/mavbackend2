@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\newRequest;
+use App\Mail\response_request;
 use App\Models\AssignedService;
 use App\Models\PersonalData;
 use App\Models\RequestService;
@@ -51,7 +52,7 @@ class RequestsServicesController extends Controller
                 'data' => null,
                 'code' => 400,
                 'details' => $validator->errors(),
-                'metadata' => $datos,
+                'metadata' =>$datos,
             ];
         } else {
             $data = self::usuario($request); // devuelve el user_id y si es un usuario nuevo devuelve el user_id y el password tempporal
@@ -65,17 +66,17 @@ class RequestsServicesController extends Controller
             $solicitudNueva= self::SolicitudRecibida($solicitudNueva);
             $solicitudNueva->email = $datos['email'];
             $solicitudNueva->name  = $datos['name'];
-
+            $applicant= $datos['email'];
             $response = [
                 'message' => 'Solicitud radicada satisfactoriamente',
                 'data' => null,
                 'code' => 200,
                 'details' => $solicitudNueva
             ];
-            $para= env('MAIL_SYSTEM','estarlin.elv@gmail.com');
+            $system= env('MAIL_SYSTEM','estarlin.elv@gmail.com');
 
-            Mail::to($para)->queue( new newRequest($solicitudNueva));
-
+            Mail::to($system)->queue( new newRequest($solicitudNueva));
+            Mail::to($applicant)->queue(new response_request($solicitudNueva));
         }
 
         return  response()->json($response, $response['code']);
