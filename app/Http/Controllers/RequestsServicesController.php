@@ -63,9 +63,23 @@ class RequestsServicesController extends Controller
                 'telefono' => $request->telefono,
                 'mensaje' => $request->mensaje,
             ]);
+
             $solicitudNueva= self::SolicitudRecibida($solicitudNueva);
             $solicitudNueva->email = $datos['email'];
             $solicitudNueva->name  = $datos['name'];
+            $solicitudNueva->pwd   = $data['passwordTemp'];
+
+
+            $EmailaCliente = [
+                "name"=>  $datos['name'],
+                "email"=>  $datos['email'],
+                "pwd"=>  $data['passwordTemp'],
+                "solicitud"=>  $solicitudNueva['solicitud'],
+                "servicio"=> $solicitudNueva['servicio'],
+                "telefono"=> $request->telefono,
+                "mensaje"=> $request->mensaje,
+            ];
+
             $applicant= $datos['email'];
             $response = [
                 'message' => 'Solicitud radicada satisfactoriamente',
@@ -73,16 +87,18 @@ class RequestsServicesController extends Controller
                 'code' => 200,
                 'details' => $solicitudNueva
             ];
+
             $system= env('MAIL_SYSTEM','estarlin.elv@gmail.com');
 
-            Mail::to($system)->queue( new newRequest($solicitudNueva));
-            Mail::to($applicant)->queue(new response_request($solicitudNueva));
+            Mail::to($applicant)->queue(new response_request($EmailaCliente));
+
+            Mail::to($system)->queue( new newRequest($EmailaCliente));
+
         }
 
         return  response()->json($response, $response['code']);
     }
     public  static function SolicitudRecibida($datos) {
-
         $solserv =  RequestService::find($datos->id);
         $solserv->solicitud = RequestType::find($solserv->request_type_id)->descripcion;
         $solserv->servicio = ServicesType::find($solserv->service_type_id)->descripcion;
@@ -104,6 +120,7 @@ class RequestsServicesController extends Controller
                 'api_token' => Str::random(60),
                 'role_id' => 2,
                 'password' => Hash::make($passwordTemp),
+
             ]);
             PersonalData::create([
                 'user_id' => $user->id,
@@ -117,6 +134,7 @@ class RequestsServicesController extends Controller
         }
         return $data;
     }
+
     /**
      * @api {post} http://miasesorvial3.test/api/v1/requestServices Consultas
      * @apiName getAllrequestServices

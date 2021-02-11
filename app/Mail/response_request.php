@@ -10,16 +10,16 @@ use Illuminate\Queue\SerializesModels;
 class response_request extends Mailable
 {
     use Queueable, SerializesModels;
-    public $subject='Nueva Solicitud de servicios recibida';
-    public $datos;
+    public $subject='Solicitud de Servicios';
+    public $msg;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($datos)
+    public function __construct($msg)
     {
-        $this->datos = $datos;
+        $this->msg = $msg;
     }
 
     /**
