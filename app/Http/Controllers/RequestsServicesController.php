@@ -48,7 +48,7 @@ class RequestsServicesController extends Controller
         $datos = $request->all();
         if ($validator->fails()) {
             $response = [
-                'message' => 'Error de validación los parámetros no cumplen con las especificaciones',
+                'message' => 'Error de validación: los parámetros no cumplen con las especificaciones',
                 'data' => null,
                 'code' => 400,
                 'details' => $validator->errors(),
