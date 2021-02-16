@@ -136,24 +136,49 @@ class RequestsServicesController extends Controller
     }
 
     /**
-     * @api {post} http://miasesorvial3.test/api/v1/requestServices Consultas
+     * @api {post} http://miasesorvial3.test/api/v1/requestServices Todas las Solicitudes
      * @apiName getAllrequestServices
      * @apiGroup Solicitudes
      *
-
-     * @apiParam {Tinyin} borradas Tipo Integer 1 para incluir las Borradas.
      * @apiSuccessExample {json} Respuesta de La consulta:
-     *     {
-     *       "message": "Solicitud radicada satisfactoriamente",
-     *       "data": null,
-     *       "code": 200,
-     *       "details": null
-     *     }
+     *   {
+     *       "id": 1,
+     *       "user_id": 3,
+     *       "request_type_id": 1,
+     *       "service_type_id": 1,
+     *       "request_state_id": 1,
+     *       "telefono": "3204454846",
+     *       "mensaje": "La gente positiva cambia el mundo, mientras que la negativa lo mantiene como está",
+     *       "finalizada": 0,
+     *       "created_at": "2021-02-16 14:01:39",
+     *       "updated_at": "2021-02-16 14:01:39",
+     *       "deleted_at": null,
+     *       "name": "Jorge Ramon Machado",
+     *       "email": "programadorvillao@gmail.com",
+     *       "state_descripcion": "RADICADA",
+     *       "services_types_description": "ASESORÍA JURÍDICA ACCIDENTE DE TRÁNSITO",
+     *       "request_types_description": "REPRESENTACIÓN JUDICIAL"
+     *   }
      */
     public function index()
     {
-        $requestsServices = RequestService::all();
-        return  $requestsServices;
+
+        $solicitudes = DB::table('request_services AS rs')
+            ->join('users AS u', 'u.id', '=', 'rs.user_id')
+            ->join('request_states AS rst', 'rst.id', '=', 'rs.request_state_id')
+            ->join('request_types AS rt', 'rt.id', '=', 'rs.request_type_id')
+            ->join('services_types AS st', 'st.id', '=', 'rs.service_type_id')
+            ->select('rs.*', 'u.name', 'u.email','rst.descripcion AS state_descripcion', 'st.descripcion AS services_types_description', 'rt.descripcion AS request_types_description')
+            ->get();
+        // $requestsServices = RequestService::all();
+        // $newwArray = array();
+        // foreach ($requestsServices as $valor) {
+        //     $solicitud= self::SolicitudRecibida($valor);
+        //     array_push($newwArray, $solicitud);
+        // }
+        // return $newwArray;
+
+        return  $solicitudes;
     }
 
     public function show()

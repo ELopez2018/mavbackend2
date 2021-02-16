@@ -42,7 +42,7 @@ class LoginController extends Controller
         $response = [
             'message' => 'Email y/o Contraseña incorrectas',
             'Data' => [],
-            "code" => 404,
+            "code" => 400,
             "details" => null
         ];
         if ($user = User::where('email', $request->email)->first()) {

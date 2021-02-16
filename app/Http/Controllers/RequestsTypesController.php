@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RequestType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RequestsTypesController extends Controller
 {
@@ -61,7 +62,10 @@ class RequestsTypesController extends Controller
     public function index()
     {
         try {
-            $services = RequestType::all();
+            $services = DB::table('request_types')
+                        ->where('activo', '=', 1)
+                        ->get();
+            // $services = RequestType::all();
             $response = [
                 'links' => [],
                 'data' => $services,
@@ -78,8 +82,8 @@ class RequestsTypesController extends Controller
                 'errors' =>  $th,
                 'include' => [],
                 'meta' => [
-                    'code' => 200,
-                    'message' => 'Consulta realizada correctamente'
+                    'code' => 400,
+                    'message' => 'Se presentaron errores'
                 ]
             ];
         }
