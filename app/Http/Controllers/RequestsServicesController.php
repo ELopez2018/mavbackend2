@@ -171,14 +171,18 @@ class RequestsServicesController extends Controller
             ->select('rs.*', 'u.name', 'u.email','rst.descripcion AS state_descripcion', 'st.descripcion AS services_types_description', 'rt.descripcion AS request_types_description')
             ->get();
         // $requestsServices = RequestService::all();
-        // $newwArray = array();
-        // foreach ($requestsServices as $valor) {
-        //     $solicitud= self::SolicitudRecibida($valor);
-        //     array_push($newwArray, $solicitud);
-        // }
-        // return $newwArray;
+         $newwArray = array();
+        foreach ($solicitudes as $solicitud) {
+            $history = DB::table('request_service_history')
+                            ->where('request_service_id','=',$solicitud->id )
+                            ->get();
+                            $solicitud->history = $history;
+            array_push($newwArray, $solicitud);
+        }
 
-        return  $solicitudes;
+        return $newwArray;
+
+        // return  $solicitudes;
     }
 
     public function show()
