@@ -173,7 +173,7 @@ class RequestsServicesController extends Controller
         // $requestsServices = RequestService::all();
          $newwArray = array();
         foreach ($solicitudes as $solicitud) {
-            $history = DB::table('request_service_history')
+            $history = DB::table('request_service_histories')
                             ->where('request_service_id','=',$solicitud->id )
                             ->get();
                             $solicitud->history = $history;
